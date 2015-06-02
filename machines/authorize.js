@@ -28,12 +28,12 @@ module.exports = {
       required: true
     },
 
-    keyPath: {
+    keyFile: {
       example: 'path/to/key.pem',
       description: 'Path to your generated key.pem'
     },
 
-    keyContent: {
+    key: {
       example: 'keyContent',
       description: 'Contents of private_key.pem if you want to load the pem file yourself. (do not use the path parameter above if using this param)'
     },
@@ -62,9 +62,19 @@ module.exports = {
 
 
   fn: function(inputs, exits) {
-    return exits.success();
-  },
+    var authClient = new google.auth.JWT(
+      inputs.email,
+      inputs.keyFile,
+      inputs.key || undefined,
+      inputs.scopes || [],
+      inputs.impersonateEmail || undefined);
 
-
+    authClient.authorize(function(err, tokens) {
+      if (err) {
+        return exits.error(err);
+      }
+      return exits.success(tokens);
+    });
+  }
 
 };
