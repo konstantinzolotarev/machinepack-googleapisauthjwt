@@ -1,6 +1,6 @@
 {
   "name": "machinepack-googleapisauthjwt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The JWT authorization is ideal for performing server-to-server communication without asking for user consent.",
   "scripts": {
     "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
